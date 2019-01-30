@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Javascript</title>
+
+    <style rel="stylesheet">
+        body {
+            margin: 0;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        #nav_menu {
+            background: #1971ff;
+        }
+
+        .nav_link {
+            list-style: none;
+            margin-top: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-size: 1.8em;
+            cursor: pointer;
+            width: 70px;
+        }
+
+        .nav_link:hover .sub_menu {
+            display: block;
+        }
+
+        .sub_menu {
+            list-style: none;
+            display: none;
+        }
+
+        .sub_menu li {
+            width: 75px;
+        }
+    </style>
+    
+</head>
+<body>
+    <header id="nav_menu">
+        <ul class="nav_link">
+            <li>Menu</li>
+            <li>
+                <ul class="sub_menu">
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <script type="text/javascript">
+    </script>
+</body>
+</html>
