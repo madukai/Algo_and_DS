@@ -83,6 +83,107 @@ class Node {
         }
       }
     }
+
+    //BFS
+    BFS() {
+      // check if tree is empty
+      if(!this.root) {
+        return false;
+      }
+      
+      let queue = [];
+      let result = [];
+      let tmp = this.root;
+      
+      queue.push[tmp];
+      
+      while(queue.length > 0) {
+        //
+        tmp = queue.shift();
+        result.push(tmp.data);
+        
+        if(tmp.left) {
+          queue.push(tmp.left);
+        }
+        
+        if(tmp.right) {
+          queue.push(tmp.right);
+        }
+      }
+      
+      return result;
+    }
+    
+    DFS(){
+      
+      let node = this.root;
+      
+      let result [],
+          stack =[];
+      
+      stack.push(node);
+      
+      while(stack.length){
+          //[8,,]   //[10,15]
+          node = stack.pop();
+          result.push(node.data)
+        
+        if(node.left)  stack.push(node.left)
+        if(node.right)  stack.push(node.right)
+      
+      }
+      
+      return result;
+    }
+    
+    //traversal : preoreder , post order and inorder 
+    PreOrder() {
+      let result =[];
+      if(!this.root) return result;
+      
+      function helperTraverse(root){
+          
+          result.push(root.val);
+          if(root.left) helperTraverse(root.left)
+          if(root.right) helperTraverse(root.right)
+      }
+      
+      helperTraverse(this.root)
+      
+      return result;
+    }
+    
+    InOrder() {
+      let result = [];
+      if(!this.root) return result;
+      
+      function helperTraverse(root){
+          
+          if(root.left) helperTraverse(root.left);
+          result.push(root.val);
+          if(root.right) helperTraverse(root.right);
+      }
+      
+      helperTraverse(this.root)
+      
+      return result; 
+    }
+    
+    PostOrder() {
+      let result = [];
+      if(!this.root) return result;
+      
+      function helperTraverse(root){
+          
+          if(root.left) helperTraverse(root.left);
+          if(root.right) helperTraverse(root.right);
+          result.push(root.val);
+      }
+      
+      helperTraverse(this.root)
+      
+      return result; 
+    }
   }
   
   
