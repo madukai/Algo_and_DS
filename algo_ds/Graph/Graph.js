@@ -36,23 +36,96 @@ class Graph{
       delete this.adjacentList[v];
       return this;
     }
+
+    // BFS
+
+  //        A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        
+
+//          F
+  bfs(start) {
+
+    const queue= [start];
+    const visited ={};
+    const result =[];
+
+    visited[start] = true;
+
+    while(queue.length){
+
+      let currentNode = queue.shift();
+      result.push(currentNode);
+
+      //edges its connected to 
+
+      this.adjacentList[currentNode].forEach(neighbour => {
+        if(!visited[neighbour]){
+          visited[neighbour] = true;
+          queue.push(neighbour)
+        }
+        
+      });
+
+    }
+    return result;
+  }
+
+  dfs(start) {
+    const stack = [start];
+    const visited = {};
+    const result = [];
+
+    visited[start] = true;
+
+    while(stack.length) {
+
+      let currentNode = stack.pop();
+      result.push(currentNode);
+
+      this.adjacentList[currentNode].forEach(neighbour => {
+
+        if(!visited[neighbour]) {
+          visited[neighbour] = true;
+          stack.push(neighbour);
+        }
+      })
+    }
+
+    return result;
+  }
 }
+
 
 //bfs and dfs
 
-
+  //        A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        \   /
+//          F
 const g = new Graph();
-g.addVertex("SF")
-g.addVertex("Boston")
-g.addVertex("NYC")
-g.addVertex("Texas")
-g.addVertex("Delhi")
+g.addVertex("A")
+g.addVertex("B")
+g.addVertex("C")
+g.addVertex("D")
+g.addVertex("E")
+g.addVertex("F")
 
-g.addEdges("SF","Boston")
-g.addEdges("NYC","Boston")
-g.addEdges("NYC","Delhi")
+g.addEdges("A","B")
+g.addEdges("A","C")
+g.addEdges("B","D")
+g.addEdges("C","E")
+g.addEdges("D","F")
+g.addEdges("D","E")
+g.addEdges("E","F")
 
-g.removeVertex("NYC")
 
 // g.removeEdges("SF","Boston")
-console.log(g)
+//console.log(g.bfs("A"))
+console.log(g.dfs("A"))
