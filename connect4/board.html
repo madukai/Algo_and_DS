@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Connect 4</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <style>
+      .col {
+          float: left;
+      }
+      .col > div {
+          border: 1px solid blue;
+          width: 80px;
+          height: 50px;
+      }
+      .col:hover > div {
+          background-color: #c3c7c3;
+      }
+  </style>
+
+</head>
+
+<body>
+    <div id="main" class="m">
+        <div class="col">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+        <div class="col">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+        <div class="col">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+        <div class="col">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+    </div>
+  <script>
+
+    /*
+    TODO: 
+    1. Determine if the column select is full or not
+    2. Win condition
+    3. Animation of the token/coin getting dropped on the board
+    */
+  
+    let col = document.getElementsByClassName('col');
+
+    // player turn
+    var playerTurn = 1;
+    // matrix to keep track of each board's value base on player's turn
+    // 0 means available
+    var boardMatrix = [
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [0,0,0,0]
+                ]
+
+    // iterate through each col
+    for(let i = 0; i < col.length; i++) {
+        // click event
+        col[i].addEventListener('click', function(e) {
+            // variable to detemine which box needs to changes color
+            let col = 0;
+            // inner array
+            let bm = boardMatrix[i];
+
+            // iterate through inner array
+            for(let j = bm.length-1; j > 0; j--) {
+                // check if value is 0
+                if(bm[j] === 0) {
+                    // set col to current value of j
+                    col = j;
+                    // set current element to playerTurn's value
+                    bm[j] = playerTurn;
+                    // break out of the loop
+                    break;
+                }
+            }
+
+            // get all the div.col childrens
+            let ch = e.target.parentNode.children;
+
+            // determine the box color base on player's turn
+            let colorBg = (playerTurn === 1) ? "yellow" : "blue";
+
+            // change background color
+            ch[col].style.backgroundColor = colorBg;
+
+            // switch player
+            playerTurn = (playerTurn === 1) ? 2 : 1;
+        });
+    }
+    
+  </script>
+</body>
+</html>
