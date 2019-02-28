@@ -20,6 +20,22 @@
       .col:hover > div {
           background-color: #c3c7c3;
       }
+
+      /* coin css */
+      .coin {
+        height: 100%;
+        border-radius: 30px;
+        width: 65%;
+        margin: auto;
+      }
+
+      .p1-coin {
+        background-color: yellow;
+      }
+
+      .p2-coin {
+          background-color: blue;
+      }
   </style>
 
 </head>
@@ -55,12 +71,17 @@
 
     /*
     TODO: 
-    1. Determine if the column select is full or not
-    2. Win condition
-    3. Animation of the token/coin getting dropped on the board
+    1. Win condition
+    2. Animation of the token/coin getting dropped on the board
     */
   
     let col = document.getElementsByClassName('col');
+
+    // player 1 coin
+    let p1Coin = '<div class="coin p1-coin"></div>';
+
+    // player 2 coin
+    let p2Coin = '<div class="coin p2-coin"></div>';
 
     // player turn
     var playerTurn = 1;
@@ -82,8 +103,14 @@
             // inner array
             let bm = boardMatrix[i];
 
+            // check if selected column is full by getting
+            // the first element of the column and check if it is zero or not
+            if(bm[0] !== 0) {
+                return;
+            }
+
             // iterate through inner array
-            for(let j = bm.length-1; j > 0; j--) {
+            for(let j = bm.length-1; j >= 0; j--) {
                 // check if value is 0
                 if(bm[j] === 0) {
                     // set col to current value of j
@@ -99,10 +126,10 @@
             let ch = e.target.parentNode.children;
 
             // determine the box color base on player's turn
-            let colorBg = (playerTurn === 1) ? "yellow" : "blue";
+            let htmlcoin = (playerTurn === 1) ? p1Coin : p2Coin;
 
             // change background color
-            ch[col].style.backgroundColor = colorBg;
+            ch[col].innerHTML = htmlcoin;
 
             // switch player
             playerTurn = (playerTurn === 1) ? 2 : 1;
