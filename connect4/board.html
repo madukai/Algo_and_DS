@@ -131,9 +131,207 @@
             // change background color
             ch[col].innerHTML = htmlcoin;
 
+            if(verticalCheck() || horizontalCheck() || diagonalCheck()) {
+                console.log("Player: " + playerTurn);
+                return;
+            }
+
             // switch player
             playerTurn = (playerTurn === 1) ? 2 : 1;
         });
+    }
+
+    function verticalCheck() {
+        var currentValue = null,
+            previousValue = 0,
+            tally = 0;
+
+        // Scan each row in series, tallying the length of each series. If a series
+        // ever reaches four, return true for a win.
+        for (var y = 0; y <= 3; y++) {
+            for (var x = 0; x <= 3; x++) {
+
+                currentValue = boardMatrix[y][x];
+
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+            }
+
+            // After each row, reset the tally and previous value.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // No vertical win was found.
+        return false;
+    }
+
+    function horizontalCheck() {
+        var currentValue = null,
+        previousValue = 0,
+        tally = 0;
+
+        // Scan each column in series, tallying the length of each series. If a
+        // series ever reaches four, return true for a win.
+        for (var x = 0; x <= 3; x++) {
+            for (var y = 0; y <= 3; y++) {
+
+                currentValue = boardMatrix[y][x];
+
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+            }
+
+            // After each column, reset the tally and previous value.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // No horizontal win was found.
+        return false;
+    }
+
+    function diagonalCheck() {
+        var x = null,
+        y = null,
+        xtemp = null,
+        ytemp = null,
+        currentValue = null,
+        previousValue = 0,
+        tally = 0;
+
+        // Test for down-right diagonals across the top.
+        for (x = 0; x <= 3; x++) {
+            xtemp = x;
+            ytemp = 0;
+
+            while (xtemp <= 3 && ytemp <= 3) {
+                currentValue = boardMatrix[ytemp][xtemp];
+
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+
+                // Shift down-right one diagonal index.
+                xtemp++;
+                ytemp++;
+            }
+            // Reset the tally and previous value when changing diagonals.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // Test for down-left diagonals across the top.
+        for (x = 0; x <= 3; x++) {
+            xtemp = x;
+            ytemp = 0;
+
+            while (0 <= xtemp && ytemp <= 3) {
+
+                currentValue = boardMatrix[ytemp][xtemp];
+
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+
+                // Shift down-left one diagonal index.
+                xtemp--;
+                ytemp++;
+            }
+            // Reset the tally and previous value when changing diagonals.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // Test for down-right diagonals down the left side.
+        for (y = 0; y <= 3; y++) {
+            xtemp = 0;
+            ytemp = y;
+
+            while (xtemp <= 3 && ytemp <= 3) {
+
+                currentValue = boardMatrix[ytemp][xtemp];
+
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+
+                // Shift down-right one diagonal index.
+                xtemp++;
+                ytemp++;
+            }
+            // Reset the tally and previous value when changing diagonals.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // Test for down-left diagonals down the right side.
+        for (y = 0; y <= 3; y++) {
+            xtemp = 3;
+            ytemp = y;
+
+            while (0 <= xtemp && ytemp <= 3) {
+
+                currentValue = boardMatrix[ytemp][xtemp];
+                if (currentValue === previousValue && currentValue !== 0) {
+                    tally += 1;
+                } else {
+                    // Reset the tally if you find a gap.
+                    tally = 0;
+                }
+                if (tally === 3) {
+                    return true;
+                }
+                previousValue = currentValue;
+
+                // Shift down-left one diagonal index.
+                xtemp--;
+                ytemp++;
+            }
+            // Reset the tally and previous value when changing diagonals.
+            tally = 0;
+            previousValue = 0;
+        }
+
+        // No diagonal wins found. Return false.
+        return false;
     }
     
   </script>
